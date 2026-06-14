@@ -47,6 +47,7 @@ const getColorStyles = (color: ServiceColor, isDark: boolean) => {
       openWrapper: isDark ? "text-[#b200ff]/70 group-hover:text-[#b200ff] group-hover:drop-shadow-[0_0_8px_rgba(178,0,255,0.8)]" : "text-purple-500 group-hover:text-purple-600",
     };
   }
+
   return { border: "", shadow: "", titleHover: "", portHover: "", openWrapper: "" };
 };
 
