@@ -1,0 +1,6 @@
+{
+  "name": "Server Services",
+  "description": "A refined, cyber-styled dark mode dashboard tracking server status, CPU, RAM, and quick links to local services with neon glow effects.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
