@@ -74,7 +74,7 @@ export default function App() {
               <div className="flex items-baseline gap-4">
                 <h1 className={`text-xl font-semibold leading-10 tracking-[-0.02em] ${isDark ? "text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" : "text-slate-900"}`}>Services</h1>
                 <span className={`font-mono text-[13px] ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.8)]" : "font-semibold text-sky-600"}`}>
-                  {isLoading && isFetching ? "-" : `${capitalize(data.os.platform)} ${data.os.release}`}
+                  {!isLoading && !isFetching ? `${capitalize(data?.os.platform)} ${data?.os.release}` : "-"}
                 </span>
               </div>
               <button onClick={() => setIsDark(!isDark)} aria-label="Toggle Dark Mode" className={`rounded-md p-2 transition-colors ${isDark ? " text-white hover:bg-white/20" : " text-gray-700 hover:bg-gray-300"}`}>
@@ -92,17 +92,15 @@ export default function App() {
               </div>
               <div className="flex flex-col">
                 <span className={`text-[12px] font-bold uppercase tracking-wider ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]" : "text-slate-500"}`}>Uptime</span>
-                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>{data?.uptime ?? "-"}</span>
+                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>{!isLoading && !isFetching ? data?.uptime : "-"}</span>
               </div>
               <div className="flex flex-col">
                 <span className={`text-[12px] font-bold uppercase tracking-wider ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]" : "text-slate-500"}`}>CPU Usage</span>
-                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>{data?.cpu.percent ?? "-"}</span>
+                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>{!isLoading && !isFetching ? data?.cpu.percent : "-"}</span>
               </div>
               <div className="flex flex-col">
                 <span className={`text-[12px] font-bold uppercase tracking-wider ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]" : "text-slate-500"}`}>RAM Usage</span>
-                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>
-                  {data?.ram.used ?? "-"} / {data?.ram.total ?? "-"} ({data?.ram.percent ?? "-"} %)
-                </span>
+                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>{!isLoading && !isFetching ? `${data?.ram.used ?? "-"} / ${data?.ram.total ?? "-"} (${data?.ram.percent ?? "-"} %)` : "-"}</span>
               </div>
             </div>
 
