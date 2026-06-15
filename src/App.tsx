@@ -1,7 +1,10 @@
 import { ArrowRight, Moon, Sun } from "lucide-react";
 import { useState } from "react";
-
 import { Helmet } from "react-helmet-async";
+
+import { capitalize } from "@titocandradev/neatcore";
+
+import { useContent, Content } from "./hooks/useContent";
 
 type ServiceColor = "cyan" | "magenta" | "purple";
 
@@ -54,6 +57,8 @@ const getColorStyles = (color: ServiceColor, isDark: boolean) => {
 export default function App() {
   const [isDark, setIsDark] = useState(true);
 
+  const { data, isLoading, isFetching } = useContent();
+
   return (
     <>
       <Helmet>
@@ -68,7 +73,9 @@ export default function App() {
             <div className={`mb-10 rounded-xl flex items-center justify-between border-b p-3 transition-colors ${isDark ? "border-[#00f3ff]/30 shadow-[0_1px_15px_-3px_rgba(0,243,255,0.2)]" : "border-slate-200"}`}>
               <div className="flex items-baseline gap-4">
                 <h1 className={`text-xl font-semibold leading-10 tracking-[-0.02em] ${isDark ? "text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" : "text-slate-900"}`}>Services</h1>
-                {/* <span className={`font-mono text-[13px] ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.8)]" : "font-semibold text-sky-600"}`}>v2.4.0-stable</span> */}
+                <span className={`font-mono text-[13px] ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.8)]" : "font-semibold text-sky-600"}`}>
+                  {isLoading && isFetching ? "-" : `${capitalize(data.os.platform)} ${data.os.release}`}
+                </span>
               </div>
               <button onClick={() => setIsDark(!isDark)} aria-label="Toggle Dark Mode" className={`rounded-md p-2 transition-colors ${isDark ? " text-white hover:bg-white/20" : " text-gray-700 hover:bg-gray-300"}`}>
                 {isDark ? <Sun size={18} /> : <Moon size={18} />}
@@ -79,17 +86,24 @@ export default function App() {
             <div
               className={`mb-6 flex flex-wrap items-center justify-between gap-4 rounded-lg border p-4 backdrop-blur-sm transition-colors ${isDark ? "border-[#00f3ff]/50 bg-black/60 shadow-[0_0_15px_rgba(0,243,255,0.15)]" : "border-slate-200 bg-white shadow-sm"}`}
             >
-              {[
-                { label: "IP Address", value: "103.56.149.18" },
-                { label: "Uptime", value: "-" },
-                { label: "CPU Usage", value: "-" },
-                { label: "RAM Usage", value: "-" },
-              ].map((stat) => (
-                <div key={stat.label} className="flex flex-col">
-                  <span className={`text-[12px] font-bold uppercase tracking-wider ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]" : "text-slate-500"}`}>{stat.label}</span>
-                  <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>{stat.value}</span>
-                </div>
-              ))}
+              <div className="flex flex-col">
+                <span className={`text-[12px] font-bold uppercase tracking-wider ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]" : "text-slate-500"}`}>IP Address</span>
+                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>103.56.149.18</span>
+              </div>
+              <div className="flex flex-col">
+                <span className={`text-[12px] font-bold uppercase tracking-wider ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]" : "text-slate-500"}`}>Uptime</span>
+                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>{data?.uptime ?? "-"}</span>
+              </div>
+              <div className="flex flex-col">
+                <span className={`text-[12px] font-bold uppercase tracking-wider ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]" : "text-slate-500"}`}>CPU Usage</span>
+                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>{data?.cpu.percent ?? "-"}</span>
+              </div>
+              <div className="flex flex-col">
+                <span className={`text-[12px] font-bold uppercase tracking-wider ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]" : "text-slate-500"}`}>RAM Usage</span>
+                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>
+                  {data?.ram.used ?? "-"} / {data?.ram.total ?? "-"} ({data?.ram.percent ?? "-"} %)
+                </span>
+              </div>
             </div>
 
             {/* Services List */}
