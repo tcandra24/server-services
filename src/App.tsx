@@ -16,10 +16,11 @@ interface ServiceItem {
 }
 
 const services: ServiceItem[] = [
-  { name: "n8n Automation", port: "8765", color: "cyan", link: "http://103.56.149.18:8765" },
-  { name: "Coolify", port: "8000", color: "magenta", link: "http://103.56.149.18:8000" },
-  { name: "Uptime Kuma", port: "3001", color: "purple", link: "http://103.56.149.18:3001" },
-  { name: "9Router", port: "20128", color: "cyan", link: "http://103.56.149.18:20128" },
+  { name: "n8n Automation", port: "8765", color: "cyan", link: "http://niflheim.my.id:8765" },
+  { name: "Coolify", port: "8000", color: "magenta", link: "http://niflheim.my.id:8000" },
+  { name: "Uptime Kuma", port: "3001", color: "purple", link: "http://niflheim.my.id:3001" },
+  { name: "9Router", port: "20128", color: "cyan", link: "http://niflheim.my.id:20128" },
+  { name: "Netdata", port: "19999", color: "cyan", link: "http://niflheim.my.id:19999" },
 ];
 
 const getColorStyles = (color: ServiceColor, isDark: boolean) => {
@@ -118,8 +119,10 @@ export default function App() {
                   >
                     <div className="flex items-center gap-4">
                       <div className="h-2 w-2 rounded-full shadow-[0_0_8px_rgba(16,185,129,1)]" style={{ backgroundColor: "#10B981" }} title="Running" />
-                      <h2 className={`text-[18px] font-semibold transition-colors ${style.titleHover} ${isDark ? "text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]" : "text-slate-900"}`}>{service.name}</h2>
-                      <span className={`ml-2 font-mono text-[13px] transition-colors ${style.portHover} ${isDark ? "text-gray-400" : "text-slate-500"}`}>port: {service.port}</span>
+                      <div className="flex flex-col gap-2">
+                        <h2 className={`text-[18px] font-semibold transition-colors ${style.titleHover} ${isDark ? "text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]" : "text-slate-900"}`}>{service.name}</h2>
+                        <span className={` font-mono text-[13px] transition-colors ${style.portHover} ${isDark ? "text-gray-400" : "text-slate-500"}`}>port: {service.port}</span>
+                      </div>
                     </div>
                     <div className={`flex items-center gap-1 transition-all ${style.openWrapper}`}>
                       <span className="text-[14px] font-bold">Open</span>
