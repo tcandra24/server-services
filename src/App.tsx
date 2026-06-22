@@ -20,7 +20,6 @@ const services: ServiceItem[] = [
   { name: "Coolify", port: "8000", color: "magenta", link: "http://niflheim.my.id:8000" },
   { name: "Uptime Kuma", port: "3001", color: "purple", link: "http://niflheim.my.id:3001" },
   { name: "9Router", port: "20128", color: "cyan", link: "http://niflheim.my.id:20128" },
-  { name: "Netdata", port: "19999", color: "cyan", link: "http://niflheim.my.id:19999" },
 ];
 
 const getColorStyles = (color: ServiceColor, isDark: boolean) => {
@@ -89,7 +88,7 @@ export default function App() {
             >
               <div className="flex flex-col">
                 <span className={`text-[12px] font-bold uppercase tracking-wider ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]" : "text-slate-500"}`}>IP Address</span>
-                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>103.56.149.18</span>
+                <span className={`font-mono text-[14px] ${isDark ? "text-white" : "font-medium text-slate-900"}`}>{!isLoading && !isFetching ? data?.ip_address : "-"}</span>
               </div>
               <div className="flex flex-col">
                 <span className={`text-[12px] font-bold uppercase tracking-wider ${isDark ? "text-[#00f3ff] drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]" : "text-slate-500"}`}>Uptime</span>

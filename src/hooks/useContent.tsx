@@ -23,6 +23,7 @@ export interface Content {
   cpu: CPU;
   ram: RAM;
   uptime: string;
+  ip_address: string;
   os: OS;
 }
 
